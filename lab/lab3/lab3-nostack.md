@@ -108,8 +108,6 @@ Scrieti un parser pentru o expresie de baza.
 ```{.hs .Parsing}
 basicExp :: Parser ComplexExp
 basicExp = undefined
--- >>> parseFirst basicExp "[a,b,c]"
--- Just (List [CX (Var {getVar = "a"}),CX (Var {getVar = "b"}),CX (Var {getVar = "c"})])
 ```
 
 ### Toate expresiile (incluzând aplicația)
@@ -124,7 +122,6 @@ Astfel, din șirul de intrare `"x y z t"` va trebui să obțineți
 expr :: Parser ComplexExp
 expr = varExp
 -- >>> parseFirst expr "\\x -> x y z t"
--- Just (CLam (Var {getVar = "x"}) (CApp (CApp (CApp (CX (Var {getVar = "x"})) (CX (Var {getVar = "y"}))) (CX (Var {getVar = "z"}))) (CX (Var {getVar = "t"}))))
 ```
 
 Astfel am închis cercul și am obținut un parser pentru tipul $\lambda$-expresiilor. In final, pentru a obtine un comportament mai robust, avem grija sa:
@@ -134,8 +131,7 @@ Astfel am închis cercul și am obținut un parser pentru tipul $\lambda$-expres
 ```{.hs .Parsing}
 exprParser :: Parser ComplexExp
 exprParser = whiteSpace *> expr <* endOfInput
--- >>> parseFirst exprParser "let x := 28 in \\y -> + x y"
--- Just (Let (Var {getVar = "x"}) (Nat 28) (CLam (Var {getVar = "y"}) (CApp (CApp (CX (Var {getVar = "+"})) (CX (Var {getVar = "x"}))) (CX (Var {getVar = "y"})))))
+-- >>> parseFirst exprParser "\\y -> x y"
 ```
 
 ## Formatarea expresiilor
