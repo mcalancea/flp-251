@@ -28,7 +28,11 @@ anychar = undefined
 
 -- | anychar
 -- >>> apply anychar "&ab"
--- [('&',"ab")]
+-- *** Exception: Prelude.undefined
+-- CallStack (from HasCallStack):
+--   error, called at libraries/base/GHC/Err.hs:74:14 in base:GHC.Err
+--   undefined, called at /home/mihai/flp-251/lab/lab2/Lab2.hs:27:11 in main:Lab2
+--
 
 --- | acceptă doar caracterul dat ca argument
 char :: Char -> Parser Char
